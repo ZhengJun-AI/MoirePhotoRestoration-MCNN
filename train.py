@@ -22,86 +22,93 @@ torch.cuda.set_device(4)
 
 
 class MoireCNN(nn.Module):
+
+    def conv(self, channels):
+        x=nn.Sequential(
+            nn.Conv2d(channels, channels, 1, 1, 0),
+            nn.ReLU(True),
+            nn.Conv2d(channels, channels, 1, 1, 0),
+            nn.ReLU(True),
+            nn.Conv2d(channels, channels, 1, 1, 0),
+            nn.ReLU(True),
+            nn.Conv2d(channels, channels, 1, 1, 0),
+            nn.ReLU(True),
+            nn.Conv2d(channels, channels, 1, 1, 0),
+            nn.ReLU(True)
+        )
+        return x
+
     def __init__(self):
+
         super().__init__()
         
         self.s11=nn.Sequential(
             nn.Conv2d(3, 32, 3, 1, 1),
-            nn.BatchNorm2d(32),
             nn.ReLU(True),
             nn.Conv2d(32, 32, 3, 1, 1)
         )
         self.s12=nn.Conv2d(32, 3, 3, 1, 1)
+        self.s13=self.conv(32)
         
         self.s21=nn.Sequential(
             nn.Conv2d(32, 32, 3, 2, 1),
-            nn.BatchNorm2d(32),
             nn.ReLU(True),
             nn.Conv2d(32, 64, 3, 1, 1)
         )
         self.s22=nn.Sequential(
             nn.ConvTranspose2d(64, 32, 4, 2, 1),
-            nn.BatchNorm2d(32),
             nn.ReLU(True),
             nn.Conv2d(32, 3, 3, 1, 1)
         )
+        self.s23=self.conv(64)
         
         self.s31=nn.Sequential(
             nn.Conv2d(64, 64, 3, 2, 1),
-            nn.BatchNorm2d(64),
             nn.ReLU(True),
             nn.Conv2d(64, 64, 3, 1, 1)
         )
         self.s32=nn.Sequential(
             nn.ConvTranspose2d(64, 64, 4, 2, 1),
-            nn.BatchNorm2d(64),
             nn.ReLU(True),
             nn.ConvTranspose2d(64, 32, 4, 2, 1),
-            nn.BatchNorm2d(32),
             nn.ReLU(True),
             nn.Conv2d(32, 3, 3, 1, 1)
         )
+        self.s33=self.conv(64)
         
         self.s41=nn.Sequential(
             nn.Conv2d(64, 64, 3, 2, 1),
-            nn.BatchNorm2d(64),
             nn.ReLU(True),
             nn.Conv2d(64, 64, 3, 1, 1)
         )
         self.s42=nn.Sequential(
             nn.ConvTranspose2d(64, 64, 4, 2, 1),
-            nn.BatchNorm2d(64),
             nn.ReLU(True),
             nn.ConvTranspose2d(64, 32, 4, 2, 1),
-            nn.BatchNorm2d(32),
             nn.ReLU(True),
             nn.ConvTranspose2d(32, 32, 4, 2, 1),
-            nn.BatchNorm2d(32),
             nn.ReLU(True),
             nn.Conv2d(32, 3, 3, 1, 1)
         )
+        self.s43=self.conv(64)
         
         self.s51=nn.Sequential(
             nn.Conv2d(64, 64, 3, 2, 1),
-            nn.BatchNorm2d(64),
             nn.ReLU(True),
             nn.Conv2d(64, 64, 3, 1, 1)
         )
         self.s52=nn.Sequential(
             nn.ConvTranspose2d(64, 64, 4, 2, 1),
-            nn.BatchNorm2d(64),
             nn.ReLU(True),
             nn.ConvTranspose2d(64, 32, 4, 2, 1),
-            nn.BatchNorm2d(32),
             nn.ReLU(True),
             nn.ConvTranspose2d(32, 32, 4, 2, 1),
-            nn.BatchNorm2d(32),
             nn.ReLU(True),
             nn.ConvTranspose2d(32, 32, 4, 2, 1),
-            nn.BatchNorm2d(32),
             nn.ReLU(True),
             nn.Conv2d(32, 3, 3, 1, 1)
         )
+        self.s53=self.conv(64)
         
     def forward(self, x):
         x1=self.s11(x)
@@ -110,15 +117,15 @@ class MoireCNN(nn.Module):
         x4=self.s41(x3)
         x5=self.s51(x4)
         
-        x1=self.s12(x1)
-        x2=self.s22(x2)
-        x3=self.s32(x3)
-        x4=self.s42(x4)
-        x5=self.s52(x5)
-        
+        x1=self.s12(self.s13(x1))
+        x2=self.s22(self.s23(x2))
+        x3=self.s32(self.s33(x3))
+        x4=self.s42(self.s43(x4))
+        x5=self.s52(self.s53(x5))
+
         x=x1+x2+x3+x4+x5
         
-        return x
+        return torch.clamp(x, 0, 1)
 
 
 def train(epoch):
