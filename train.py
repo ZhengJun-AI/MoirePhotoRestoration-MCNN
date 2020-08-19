@@ -25,15 +25,15 @@ class MoireCNN(nn.Module):
 
     def conv(self, channels):
         x=nn.Sequential(
-            nn.Conv2d(channels, channels, 1, 1, 0),
+            nn.Conv2d(channels, channels, 3, 1, 1),
             nn.ReLU(True),
-            nn.Conv2d(channels, channels, 1, 1, 0),
+            nn.Conv2d(channels, channels, 3, 1, 1),
             nn.ReLU(True),
-            nn.Conv2d(channels, channels, 1, 1, 0),
+            nn.Conv2d(channels, channels, 3, 1, 1),
             nn.ReLU(True),
-            nn.Conv2d(channels, channels, 1, 1, 0),
+            nn.Conv2d(channels, channels, 3, 1, 1),
             nn.ReLU(True),
-            nn.Conv2d(channels, channels, 1, 1, 0),
+            nn.Conv2d(channels, channels, 3, 1, 1),
             nn.ReLU(True)
         )
         return x
