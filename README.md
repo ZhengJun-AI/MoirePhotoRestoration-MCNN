@@ -4,7 +4,7 @@
 
 文件共有两个：train.py 和 moire.ipynb\
 数据集下载地址：https://drive.google.com/drive/folders/109cAIZ0ffKLt34P7hOMKUO14j3gww2UC \
-论文分析博文地址：https://zxbsmk.top/index.php/2020/08/21/2018%e5%b9%b4-demoire-%e7%bb%8f%e5%85%b8%e8%ae%ba%e6%96%87%e5%a4%8d%e7%8e%b0/
+论文分析博文地址：https://www.zxbsmk.top/index.php/2020/08/21/2018%e5%b9%b4-demoire-%e7%bb%8f%e5%85%b8%e8%ae%ba%e6%96%87%e5%a4%8d%e7%8e%b0/
 
 （以下操作都需要替换文件中所包含的数据集绝对路径）\
 在运行 train.py 之前，请先运行 moire.ipynb 中的**实验数据清理**部分，确保剩下的图片都能被成功裁切\
