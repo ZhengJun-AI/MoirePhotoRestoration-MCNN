@@ -32,3 +32,12 @@ Get PSNR of the testing set.
 python test.py
 ```
 
+## Dataset
+
+| psnr distribution | \<12 | 12~14 | 14~17 | 17~20 | 20~22 | 22~24 | \>24  |
+| :---------------: | :--: | :---: | :---: | :---: | :---: | :---: | :---: |
+|   training set    |  72  | 2318  | 29816 | 37089 | 21195 | 15102 | 12856 |
+|    testing set    |  8   |  227  | 2951  | 3809  | 2069  | 1463  | 1324  |
+|       total       |  80  | 2545  | 32767 | 40898 | 23264 | 16565 | 14180 |
+
+We can see that low quality image pairs whose PSNR is lower than 12 still exist in the dataset, which is against the author's declaration.
