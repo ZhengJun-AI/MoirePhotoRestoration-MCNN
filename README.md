@@ -3,7 +3,8 @@
 This is an unofficial reproduction of paper *Moir´e Photo Restoration Using Multiresolution Convolutional Neural Networks*.(PyTorch)
 
 First of all, you need to prepare the whole dataset of this paper, which is around 100G.\
-dataset download link : https://drive.google.com/drive/folders/109cAIZ0ffKLt34P7hOMKUO14j3gww2UC
+dataset download link : https://drive.google.com/drive/folders/109cAIZ0ffKLt34P7hOMKUO14j3gww2UC \
+another download link : https://pan.baidu.com/s/16MWtsIqDueaBwR45AuPMMA (code:h3k9)
 
 ## Requirements
 
